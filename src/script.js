@@ -1,17 +1,23 @@
 import './style.css';
 import * as THREE from 'three';
 
-// Scene
+//Scene
 const scene = new THREE.Scene();
 
-// Blue Cube
+//Blue Cube
 const geometry =new THREE.BoxGeometry(1, 1, 1),
       material = new THREE.MeshBasicMaterial({color: 'blue'}),
       mesh = new THREE.Mesh(geometry, material);
 
-mesh.position.set(0.7, 1, 4)
-
 scene.add(mesh);
+
+//Position
+mesh.position.set(0.7, -0.6, 1);
+
+//Scale
+mesh.scale.x = 1;
+mesh.scale.y = 1;
+mesh.scale.z = 1;
 
 
 //Axes Helper
@@ -26,7 +32,9 @@ const sizes = {
 
 //Camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height);
-camera.position.z = 5;
+camera.position.z = 3;
+camera.position.y = 1;
+camera.position.X = 1;
 scene.add(camera);
 // console.log(mesh.position.distanceTo(camera.position));
 
