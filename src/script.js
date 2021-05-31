@@ -9,18 +9,25 @@ const geometry =new THREE.BoxGeometry(1, 1, 1),
       material = new THREE.MeshBasicMaterial({color: 'blue'}),
       mesh = new THREE.Mesh(geometry, material);
 
+// mesh.position.x = 0.7;
+// mesh.position.z = 4;
+
+mesh.position.set(0.7, 1, 4)
+
+
 scene.add(mesh);
 
 //Sizes
 const sizes = {
-  width: 800,
-  height: 600
+    width: 800,
+    height: 600
 };
 
 //Camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height);
 camera.position.z = 5;
 scene.add(camera);
+// console.log(mesh.position.distanceTo(camera.position));
 
 // Renderer
 const canvas = document.querySelector('canvas.scene');
