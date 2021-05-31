@@ -17,6 +17,10 @@ mesh.position.set(0.7, -0.6, 1);
 //Scale
 mesh.scale.set(1, 1, 1);
 
+//Rotation
+mesh.rotation.y = Math.PI / 2;
+
+
 
 //Axes Helper
 const axesHelper = new THREE.AxesHelper();
@@ -35,6 +39,8 @@ camera.position.y = 1;
 camera.position.X = 1;
 scene.add(camera);
 // console.log(mesh.position.distanceTo(camera.position));
+camera.lookAt(mesh.position);
+
 
 // Renderer
 const canvas = document.querySelector('canvas.scene');
