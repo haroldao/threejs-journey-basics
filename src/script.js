@@ -9,13 +9,14 @@ const geometry =new THREE.BoxGeometry(1, 1, 1),
       material = new THREE.MeshBasicMaterial({color: 'blue'}),
       mesh = new THREE.Mesh(geometry, material);
 
-// mesh.position.x = 0.7;
-// mesh.position.z = 4;
-
 mesh.position.set(0.7, 1, 4)
 
-
 scene.add(mesh);
+
+
+//Axes Helper
+const axesHelper = new THREE.AxesHelper();
+scene.add(axesHelper);
 
 //Sizes
 const sizes = {
