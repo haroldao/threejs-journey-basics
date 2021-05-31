@@ -15,9 +15,7 @@ scene.add(mesh);
 mesh.position.set(0.7, -0.6, 1);
 
 //Scale
-mesh.scale.x = 1;
-mesh.scale.y = 1;
-mesh.scale.z = 1;
+mesh.scale.set(1, 1, 1);
 
 
 //Axes Helper
