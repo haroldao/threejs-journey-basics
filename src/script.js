@@ -7,6 +7,9 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 
+// Time
+let now = Date.now()
+
 // Object
 const geometry = new THREE.BoxGeometry(1, 1, 1)
 const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
@@ -29,4 +32,20 @@ const renderer = new THREE.WebGLRenderer({
     canvas: canvas
 })
 renderer.setSize(sizes.width, sizes.height)
-renderer.render(scene, camera)
+
+// Animation
+const tick = () => {
+  const currentTime = Date.now()
+  const deltaTime = currentTime - now
+  now = currentTime
+
+  // Update object
+  mesh.rotation.y += 0.001 * deltaTime
+
+  // Render
+  renderer.render(scene, camera)
+
+  window.requestAnimationFrame(tick)
+}
+
+tick()
