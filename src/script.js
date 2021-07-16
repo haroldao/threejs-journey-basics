@@ -1,7 +1,8 @@
 import './style.css'
 import * as THREE from 'three'
+import gsap from 'gsap'
 
-// Canvas
+
 const canvas = document.querySelector('canvas.webgl')
 
 // Scene
@@ -39,10 +40,10 @@ const tick = () => {
 
   const elapsedTime = clock.getElapsedTime()
 
-  // Update object
-  mesh.position.y = Math.sin(elapsedTime)
-  mesh.position.x = Math.cos(elapsedTime)
-  mesh.rotation.y = elapsedTime
+  // Update objects
+  camera.position.y = Math.sin(elapsedTime)
+  camera.position.x = Math.cos(elapsedTime)
+  camera.lookAt(mesh.position)
 
   // Render
   renderer.render(scene, camera)
