@@ -8,6 +8,8 @@ const infoColor = (_message) =>
     return `\u001b[1m\u001b[34m${_message}\u001b[39m\u001b[22m`
 }
 
+__webpack_base_uri__ = 'http://192.168.0.17:8080';
+
 module.exports = merge(
     commonConfiguration,
     {
