@@ -43,20 +43,6 @@ document.addEventListener('mousemove', (e) => {
     cursor.y = - (e.clientY / sizes.height- 0.5) 
 })
 
-
-/**
- * Orthographic camera
-*/
-// const camera = new THREE.OrthographicCamera(
-//   -1 * aspectRatio,
-//   1 * aspectRatio, 1,
-//   -1,
-//   0.1,
-//   100
-// )
-
-// camera.position.x = 2
-// camera.position.y = 2
 camera.position.z = 3
 camera.lookAt(mesh.position)
 scene.add(camera)
@@ -64,7 +50,6 @@ scene.add(camera)
 // Controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
-
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({
@@ -78,15 +63,6 @@ const clock = new THREE.Clock()
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
-
-    // Update objects
-    // mesh.rotation.y = elapsedTime;
-
-    // Update camera
-    // camera.position.x = Math.sin(cursor.x * Math.PI * 2) * 3
-    // camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 3
-    // camera.position.y = cursor.y * 5
-    // camera.lookAt(mesh.position)	
 
     // Update controls
     controls.update()
