@@ -10,9 +10,51 @@ const canvas = document.querySelector('canvas.webgl')
 
 // Sizes
 const sizes = {
-    width: 800,
-    height: 600
+    width: window.innerWidth,
+    height: window.innerHeight
 }
+
+// EventListener resize
+window.addEventListener('resize', () => {
+    sizes.width = window.innerWidth,
+    sizes.height = window.innerHeight,
+    // update camera
+    camera.aspect = sizes.width / sizes.height,
+    camera.updateProjectionMatrix(),
+    // update renderer
+    renderer.setSize(sizes.width, sizes.height)
+    //set pixel ratio
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+})
+
+// EventListener fullscren if else
+window.addEventListener('dblclick', () => {
+    //check if safari, Mozilla (for fullscreen compatibility)
+    const fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement
+
+    if (fullscreenElement) {
+        if (document.exitFullscreen) {
+            document.exitFullscreen()  
+        }
+        else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen()
+        }
+        else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen()
+        }
+        console.log('you not fullscreen')
+    }
+    else {
+        if (canvas.requestFullscreen) {
+            canvas.requestFullscreen()
+            console.log('you fullscreen')
+        }
+        else if (canvas.webkitRequestFullscreen) {
+            canvas.webkitRequestFullscreen()
+            console.log('you webkit fullscreen')
+        }
+    }
+})
 
 // Scene
 const scene = new THREE.Scene()
@@ -69,6 +111,7 @@ const tick = () =>
 
     // Render
     renderer.render(scene, camera)
+    
 
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)
