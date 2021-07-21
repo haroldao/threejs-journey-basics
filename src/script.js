@@ -12,7 +12,15 @@ import * as dat from 'dat.gui'
 const gui = new dat.GUI()
 
 const debugObjects = {
-    color: 0x96ff
+    color: 0x96ff,
+    //create a function inside an object called spin
+    spin: () => {
+        console.log("test")
+        //rotate mesh using gsap.to
+        gsap.to(mesh.rotation, 0.5, {
+            y: mesh.rotation.y + Math.PI * 2
+        })
+    }
 }
 
 /**
@@ -54,6 +62,9 @@ gui
         // change three js material color
         material.color.set(debugObjects.color)
     })
+
+gui
+    .add(debugObjects, "spin")
 
 
 /**
