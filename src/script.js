@@ -13,14 +13,17 @@ const scene = new THREE.Scene()
 
 // Create an empty BufferGeometry
 const geometry = new THREE.BufferGeometry()
+const count = 50
+const positionsArray = new Float32Array(count * 3 * 3)
 
-const positionsArray = new Float32Array([
-    0,0,0,
-    0,1,0,
-    1,0,0
-])	
+for (let i = 0; i < count * 3 * 3; i++)
+{
+    positionsArray[i * 3 + 0] = Math.random() * 100 - 50
+    positionsArray[i * 3 + 1] = Math.random() * 100 - 50
+    positionsArray[i * 3 + 2] = Math.random() * 100 - 50
+    console.log(Math.random())
+}
 
-// Create the attribute and name it 'position'
 const positionsAttribute = new THREE.BufferAttribute(positionsArray, 3)
 geometry.setAttribute('position', positionsAttribute)
 
