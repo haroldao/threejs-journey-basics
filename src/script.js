@@ -1,27 +1,22 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import gsap from 'gsap'
-import * as dat from 'dat.gui'
 
 /**
- * Debug
- */
+ * Textures
+*/
+const image = new Image()
+const texture = new THREE.Texture(image)
 
-// Instantiate gui
-const gui = new dat.GUI()
-
-const debugObjects = {
-    color: 0x96ff,
-    //create a function inside an object called spin
-    spin: () => {
-        console.log("test")
-        //rotate mesh using gsap.to
-        gsap.to(mesh.rotation, 0.5, {
-            y: mesh.rotation.y + Math.PI * 2
-        })
-    }
+image.onload = () => {
+    // console.log("image loaded")
+    texture.needsUpdate = true
 }
+image.src = '/textures/door/color.jpg'
+
+// document.body.appendChild(image)
+// image.style.position = 'relative'
+
 
 /**
  * Base
@@ -36,36 +31,9 @@ const scene = new THREE.Scene()
  * Object
  */
 const geometry = new THREE.BoxGeometry(1, 1, 1)
-const material = new THREE.MeshBasicMaterial({ color: debugObjects.color })
+const material = new THREE.MeshBasicMaterial({ map: texture })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
-
-gui
-    .add(mesh.position, "x")
-    .min(-3)
-    .max(3)
-    .step(0.01)
-    .name("elevation")
-
-gui
-    .add(mesh, "visible")
-    .name("visible")
-
-gui
-    .add(material, "wireframe")
-    .name("wireframe")
-
-gui
-    .addColor(debugObjects, "color")
-    .onChange(() => {
-        console.log("change")
-        // change three js material color
-        material.color.set(debugObjects.color)
-    })
-
-gui
-    .add(debugObjects, "spin")
-
 
 /**
  * Sizes
@@ -75,8 +43,7 @@ const sizes = {
     height: window.innerHeight
 }
 
-window.addEventListener('resize', () =>
-{
+window.addEventListener('resize', () => {
     // Update sizes
     sizes.width = window.innerWidth
     sizes.height = window.innerHeight
@@ -95,7 +62,9 @@ window.addEventListener('resize', () =>
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-camera.position.z = 3
+camera.position.x = 1
+camera.position.y = 1
+camera.position.z = 1
 scene.add(camera)
 
 // Controls
@@ -116,8 +85,7 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
  */
 const clock = new THREE.Clock()
 
-const tick = () =>
-{
+const tick = () => {
     const elapsedTime = clock.getElapsedTime()
 
     // Update controls
