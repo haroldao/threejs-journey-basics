@@ -10,9 +10,51 @@ const canvas = document.querySelector('canvas.webgl')
 
 // Sizes
 const sizes = {
-    width: 800,
-    height: 600
+    width: window.innerWidth,
+    height: window.innerHeight
 }
+
+// EventListener resize
+window.addEventListener('resize', () => {
+    sizes.width = window.innerWidth,
+    sizes.height = window.innerHeight,
+    // update camera
+    camera.aspect = sizes.width / sizes.height,
+    camera.updateProjectionMatrix(),
+    // update renderer
+    renderer.setSize(sizes.width, sizes.height)
+    //set pixel ratio
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+})
+
+// EventListener fullscren if else
+window.addEventListener('dblclick', () => {
+    //check if safari, Mozilla (for fullscreen compatibility)
+    const fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement
+
+    if (fullscreenElement) {
+        if (document.exitFullscreen) {
+            document.exitFullscreen()  
+        }
+        else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen()
+        }
+        else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen()
+        }
+        console.log('you not fullscreen')
+    }
+    else {
+        if (canvas.requestFullscreen) {
+            canvas.requestFullscreen()
+            console.log('you fullscreen')
+        }
+        else if (canvas.webkitRequestFullscreen) {
+            canvas.webkitRequestFullscreen()
+            console.log('you webkit fullscreen')
+        }
+    }
+})
 
 // Scene
 const scene = new THREE.Scene()
@@ -43,20 +85,6 @@ document.addEventListener('mousemove', (e) => {
     cursor.y = - (e.clientY / sizes.height- 0.5) 
 })
 
-
-/**
- * Orthographic camera
-*/
-// const camera = new THREE.OrthographicCamera(
-//   -1 * aspectRatio,
-//   1 * aspectRatio, 1,
-//   -1,
-//   0.1,
-//   100
-// )
-
-// camera.position.x = 2
-// camera.position.y = 2
 camera.position.z = 3
 camera.lookAt(mesh.position)
 scene.add(camera)
@@ -64,7 +92,6 @@ scene.add(camera)
 // Controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
-
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({
@@ -78,15 +105,6 @@ const clock = new THREE.Clock()
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
-
-    // Update objects
-    // mesh.rotation.y = elapsedTime;
-
-    // Update camera
-    // camera.position.x = Math.sin(cursor.x * Math.PI * 2) * 3
-    // camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 3
-    // camera.position.y = cursor.y * 5
-    // camera.lookAt(mesh.position)	
 
     // Update controls
     controls.update()
